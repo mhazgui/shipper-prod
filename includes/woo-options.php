@@ -94,7 +94,7 @@ class ShipperAdvancedOptionsMetabox
             "default" => "",
         ],
         [
-            "label" => "Message",
+            "label" => "Order Number",
             "id" => "msg",
             "type" => "text",
             "default" => "",
@@ -195,6 +195,10 @@ class ShipperAdvancedOptionsMetabox
                     if ($field["id"] === "href") {
                         $field["value"] = $exportUrl;
                         $field["default"] = $exportUrl;
+                    }
+                      // Add order number to the "msg" field.
+                      if ($field["id"] === "msg") {
+                        $field["default"] = $order->get_order_number();
                     }
                     if (isset($field["default"])) {
                         $meta_value = $field["default"];
