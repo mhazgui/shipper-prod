@@ -184,7 +184,7 @@ class SHIPPER_Options_Panel {
         if ( isset( $_GET['settings-updated'] ) ) {
             add_settings_error(
                $this->option_name . '_mesages',
-               $this->option_name . '_ordernumber',
+               $this->option_name . '_message',
                esc_html__( 'Settings Saved', 'shipper' ),
                'updated'
             );
