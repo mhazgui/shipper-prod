@@ -189,7 +189,7 @@ class ShipperAdvancedOptionsMetabox
                         $product_titles = [];
                 
                         foreach ($items as $item) {
-                            $product_titles[] = $item->get_name(); // or add qty: . ' x' . $item->get_quantity()
+                            $product_titles[] = $item->get_name() . ' x' . $item->get_quantity();
                         }
                 
                         $field["default"] = implode(", ", $product_titles);
@@ -203,7 +203,15 @@ class ShipperAdvancedOptionsMetabox
                     }
                       // Add order number to the "msg" field.
                       if ($field["id"] === "msg") {
-                        $field["default"] = $order->get_order_number();
+                        $order_number = $order->get_order_number();
+        $customer_note = $order->get_customer_note();
+
+        // Build the message: "Order #123 - Note: Please leave at door."
+        $field["default"] = "Order #" . $order_number;
+
+        if (!empty($customer_note)) {
+            $field["default"] .= " – Note: " . $customer_note;
+        }
                     }
                     if (isset($field["default"])) {
                         $meta_value = $field["default"];
