@@ -19,19 +19,19 @@ class ShipperAdvancedOptionsMetabox
             "type" => "select",
             "options" => [
                 "Ariana",
-                "Béja",
+                "Beja",
                 "Ben Arous",
                 "Bizerte",
-                "Gabès",
+                "Gabes",
                 "Gafsa",
                 "Jendouba",
                 "Kairouan",
                 "Kasserine",
-                "Kébili",
+                "Kebili",
                 "La Manouba",
                 "Le Kef",
                 "Mahdia",
-                "Médenine",
+                "Medenine",
                 "Monastir",
                 "Nabeul",
                 "Sfax",
@@ -185,9 +185,14 @@ class ShipperAdvancedOptionsMetabox
                         $field["default"] = $order->get_billing_city();
                     }
                     if ($field["id"] === "article" || $field["id"] === "designation") {
-                        $field["default"] = get_option("shipper_options")[
-                            "default_product_title"
-                        ];
+                        $items = $order->get_items();
+                        $product_titles = [];
+                
+                        foreach ($items as $item) {
+                            $product_titles[] = $item->get_name(); // or add qty: . ' x' . $item->get_quantity()
+                        }
+                
+                        $field["default"] = implode(", ", $product_titles);
                     }
                     if ($field["id"] === "nb_article") {
                         $field["default"] = $order->get_item_count();
